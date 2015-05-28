@@ -319,13 +319,13 @@ class WP_AB_See {
 			}
 		}
 
-		$group_a = $this->get_conversion_rate(
+		$group_a = round( $this->get_conversion_rate(
 			count( $group_obj[ 1 ][ 'yes' ] ),
-			count( $group_obj[ 1 ][ 'no' ] ) );
+			count( $group_obj[ 1 ][ 'no' ] ) ), 2 );
 		
-		$group_b = $this->get_conversion_rate(
+		$group_b = round( $this->get_conversion_rate(
 			count( $group_obj[ 2 ][ 'yes' ] ),
-			count( $group_obj[ 2 ][ 'no' ] ) );
+			count( $group_obj[ 2 ][ 'no' ] ) ), 2 );
 
 		echo( '<h2>Group 1 conversions: ' . $group_a . '% (' .
 			count( $group_obj[ 1 ][ 'yes' ] ) . '/' .
