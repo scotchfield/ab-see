@@ -44,6 +44,10 @@ class WP_AB_See {
 		add_shortcode( 'ab-convert', array( $this, 'shortcode_abconvert' ) );
 	}
 
+	public static function get_instance() {
+		return self::$instance;
+	}
+
 	public function install() {
 		global $wpdb;
 
@@ -419,6 +423,12 @@ class WP_AB_See {
 		$user_id = $this->get_user_id();
 		$group = $this->get_group( $test_id, $user_id, 2 );
 
+		$this->update_tracking( $test_id, $user_id, $group );
+
+		if ( isset( $_GET[ 'group_override' ] ) ) {
+			$group = intval( $_GET[ 'group_override' ] );
+		}
+
 		$result = '';
 
 		if ( $group == 1 ) {
@@ -427,9 +437,7 @@ class WP_AB_See {
 			$result = $test[ 'option_b' ];
 		}
 
-		$this->update_tracking( $test_id, $user_id, $group );
-
-		return $result;
+		return do_shortcode( $result );
 	}
 
 	public function shortcode_abconvert( $args ) {
