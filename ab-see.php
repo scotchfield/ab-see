@@ -38,6 +38,11 @@ class WP_AB_See {
 
 		register_activation_hook( __FILE__, array( $this, 'install' ) );
 
+		add_filter(
+			'plugin_action_links_' . plugin_basename(__FILE__),
+			array( $this, 'add_action_links' )
+		);
+
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 
 		add_shortcode( 'ab-see', array( $this, 'shortcode_absee' ) );
@@ -75,6 +80,14 @@ class WP_AB_See {
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql );
+	}
+
+	public function add_action_links( $links ) {
+		$new_links = array(
+			'<a href="' . admin_url( 'options-general.php?page=' . self::DOMAIN . 'admin' ) . '">Settings</a>',
+		);
+
+		return array_merge( $links, $new_links );
 	}
 
 	/**
