@@ -12,9 +12,9 @@ Then, we'll do this:
 
 &lt;a href="convert.php"&gt;**[ab-see id=clothes]**&lt;/a&gt;
 
-**On convert.php:**
+**Somewhere in convert.php:**
 
-[ab-convert id=clothes_complete]
+**[ab-convert id=clothes_complete]**
 
 And that's it.
 
