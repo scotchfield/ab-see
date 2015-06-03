@@ -344,15 +344,15 @@ class WP_AB_See {
 			count( $group_obj[ 2 ][ 'yes' ] ),
 			count( $group_obj[ 2 ][ 'no' ] ) ), 2 );
 
-		echo( '<h2>Group 1 conversions: ' . $group_a . '% (' .
-			count( $group_obj[ 1 ][ 'yes' ] ) . '/' .
-			( count( $group_obj[ 1 ][ 'yes' ] ) + count( $group_obj[ 1 ][ 'no' ] ) ) .
-			')</h2>' );
+?>
+<h2>Group 1 conversions: <?php echo( $group_a ); ?>%
+  (<?php echo( count( $group_obj[ 1 ][ 'yes' ] ) ); ?>/<?php
+         echo( count( $group_obj[ 1 ][ 'yes' ] ) + count( $group_obj[ 1 ][ 'no' ] ) ); ?>)</h2>
 
-		echo( '<h2>Group 2 conversions: ' . $group_b . '% (' .
-			count( $group_obj[ 2 ][ 'yes' ] ) . '/' .
-			( count( $group_obj[ 2 ][ 'yes' ] ) + count( $group_obj[ 2 ][ 'no' ] ) ) .
-			')</h2>' );
+<h2>Group 2 conversions: <?php echo( $group_b ); ?>%
+  (<?php echo( count( $group_obj[ 2 ][ 'yes' ] ) ); ?>/<?php
+         echo( count( $group_obj[ 2 ][ 'yes' ] ) + count( $group_obj[ 2 ][ 'no' ] ) ); ?>)</h2>
+<?php
 	}
 
 	public function admin_page() {
