@@ -36,7 +36,10 @@ class WP_AB_See {
 		$this->table_name = $wpdb->prefix . 'ab_see';
 		$this->table_tracking_name = $wpdb->prefix . 'ab_see_tracking';
 
-		register_activation_hook( __FILE__, array( $this, 'install' ) );
+		register_activation_hook(
+			__FILE__,
+			array( $this, 'install' )
+		);
 
 		add_filter(
 			'plugin_action_links_' . plugin_basename(__FILE__),
@@ -46,7 +49,10 @@ class WP_AB_See {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 
 		add_shortcode( 'ab-see', array( $this, 'shortcode_absee' ) );
-		add_shortcode( 'ab-convert', array( $this, 'shortcode_abconvert' ) );
+		add_shortcode(
+			'ab-convert',
+			array( $this, 'shortcode_abconvert' )
+		);
 	}
 
 	public static function get_instance() {
@@ -84,7 +90,10 @@ class WP_AB_See {
 
 	public function add_action_links( $links ) {
 		$new_links = array(
-			'<a href="' . admin_url( 'options-general.php?page=' . self::DOMAIN . 'admin' ) . '">Settings</a>',
+			'<a href="' .
+			admin_url( 'options-general.php?page=' .
+				self::DOMAIN . 'admin' ) .
+			'">Settings</a>',
 		);
 
 		return array_merge( $links, $new_links );
@@ -108,7 +117,9 @@ class WP_AB_See {
 
 		$result = $wpdb->get_row(
 			$wpdb->prepare(
-				'SELECT * FROM `' . $this->table_tracking_name . '` WHERE id=%s AND user_id=%s',
+				'SELECT * FROM `' .
+					$this->table_tracking_name .
+					'` WHERE id=%s AND user_id=%s',
 				$test_id, $user_id
 			), ARRAY_A
 		);
@@ -132,7 +143,9 @@ class WP_AB_See {
 
 		$result_obj = $wpdb->get_results(
 			$wpdb->prepare(
-				'SELECT * FROM `' . $this->table_name . '` WHERE conversion_id=%s',
+				'SELECT * FROM `' .
+					$this->table_name .
+					'` WHERE conversion_id=%s',
 				$conversion_id
 			), ARRAY_A
 		);
