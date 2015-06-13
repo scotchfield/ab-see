@@ -36,10 +36,7 @@ class WP_AB_See {
 		$this->table_name = $wpdb->prefix . 'ab_see';
 		$this->table_tracking_name = $wpdb->prefix . 'ab_see_tracking';
 
-		register_activation_hook(
-			__FILE__,
-			array( $this, 'install' )
-		);
+		register_activation_hook( __FILE__, array( $this, 'install' ) );
 
 		add_filter(
 			'plugin_action_links_' . plugin_basename(__FILE__),
@@ -49,10 +46,7 @@ class WP_AB_See {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 
 		add_shortcode( 'ab-see', array( $this, 'shortcode_absee' ) );
-		add_shortcode(
-			'ab-convert',
-			array( $this, 'shortcode_abconvert' )
-		);
+		add_shortcode( 'ab-convert', array( $this, 'shortcode_abconvert' ) );
 	}
 
 	public static function get_instance() {
@@ -90,10 +84,7 @@ class WP_AB_See {
 
 	public function add_action_links( $links ) {
 		$new_links = array(
-			'<a href="' .
-			admin_url( 'options-general.php?page=' .
-				self::DOMAIN . 'admin' ) .
-			'">Settings</a>',
+			'<a href="' . admin_url( 'options-general.php?page=' . self::DOMAIN . 'admin' ) . '">Settings</a>',
 		);
 
 		return array_merge( $links, $new_links );
@@ -117,9 +108,7 @@ class WP_AB_See {
 
 		$result = $wpdb->get_row(
 			$wpdb->prepare(
-				'SELECT * FROM `' .
-					$this->table_tracking_name .
-					'` WHERE id=%s AND user_id=%s',
+				'SELECT * FROM `' . $this->table_tracking_name . '` WHERE id=%s AND user_id=%s',
 				$test_id, $user_id
 			), ARRAY_A
 		);
@@ -143,9 +132,7 @@ class WP_AB_See {
 
 		$result_obj = $wpdb->get_results(
 			$wpdb->prepare(
-				'SELECT * FROM `' .
-					$this->table_name .
-					'` WHERE conversion_id=%s',
+				'SELECT * FROM `' . $this->table_name . '` WHERE conversion_id=%s',
 				$conversion_id
 			), ARRAY_A
 		);
@@ -275,27 +262,27 @@ class WP_AB_See {
 <form method="post" action="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>">
 <h2>Edit Test</h2>
 <table>
-  <tr>
+  <tr valign="top">
     <td>ID</td>
     <td><input type="text" name="id" value="<?php echo( $test[ 'id' ] ); ?>" \></td>
   </tr>
-  <tr>
+  <tr valign="top">
     <td>Description</td>
     <td><textarea cols="80" rows="10" name="description"><?php echo( $test[ 'description' ] ); ?></textarea></td>
   </tr>
-  <tr>
-    <td>Option A</td>
+  <tr valign="top">
+    <td>Group 1</td>
     <td><textarea cols="80" rows="10" name="option_a"><?php echo( $test[ 'option_a' ] ); ?></textarea></td>
   </tr>
-  <tr>
-    <td>Option B</td>
+  <tr valign="top">
+    <td>Group 2</td>
     <td><textarea cols="80" rows="10" name="option_b"><?php echo( $test[ 'option_b' ] ); ?></textarea></td>
   </tr>
-  <tr>
+  <tr valign="top">
     <td>Conversion ID</td>
     <td><input type="text" name="conversion_id" value="<?php echo( $test[ 'conversion_id' ] ); ?>" \></td>
   </tr>
-  <tr>
+  <tr valign="top">
     <td>&nbsp;</td>
     <td><input type="submit" name="update" value="Update Test" /></td>
   </tr>
@@ -333,7 +320,13 @@ class WP_AB_See {
 		if ( $test == FALSE ) {
 			return;
 		}
+?>
+<p>To use this test, add the following shortcode to the place you want to show your content:<br>
+<i>[ab-see id=<?php echo( $id ) ?>]</i></p>
 
+<p>To register a conversion, add the following shortcode to the final page:<br>
+<i>[ab-convert id=<?php echo( $test[ 'conversion_id' ] ) ?>]</i></p>
+<?php
 		$tracking_obj = $this->get_tracking( $id );
 
 		$group_obj = array(
@@ -402,7 +395,7 @@ class WP_AB_See {
     <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&view_id=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'id' ] ); ?></a><br>(<a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&edit_id=<?php echo( $test[ 'id' ] ); ?>">edit</a>)</td>
     <td><?php echo( $test[ 'description' ] ); ?></td>
     <td><?php echo( $test[ 'created' ] ); ?></td>
-    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&toggle=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'enabled' ] ); ?></a></td>
+    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&toggle=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'enabled' ] ? 'Yes' : 'No' ); ?></a></td>
   </tr>
 <?php
 		}
