@@ -386,16 +386,17 @@ class WP_AB_See {
 <h2>Active Tests</h2>
 <table width="100%">
   <tr align="center">
-    <th>ID</th><th>Description</th><th>Created</th><th>Enabled</th>
+    <th>ID</th><th>Description</th><th>Created</th><th>Edit</th><th>Enabled</th>
   </tr>
 <?php
 		foreach ( $test_obj as $test ) {
 ?>
   <tr align="center">
-    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;view_id=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'id' ] ); ?></a><br>(<a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;edit_id=<?php echo( $test[ 'id' ] ); ?>">edit</a>)</td>
+    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;view_id=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'id' ] ); ?></a></td>
     <td><?php echo( $test[ 'description' ] ); ?></td>
     <td><?php echo( $test[ 'created' ] ); ?></td>
-    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;toggle=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'enabled' ] ? 'Yes' : 'No' ); ?></a></td>
+    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;edit_id=<?php echo( $test[ 'id' ] ); ?>">edit</a></td>
+    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;toggle=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'enabled' ] ? 'On' : 'Off' ); ?></a></td>
   </tr>
 <?php
 		}
