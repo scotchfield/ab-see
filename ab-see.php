@@ -264,7 +264,8 @@ class WP_AB_See {
 <table>
   <tr valign="top">
     <td>ID</td>
-    <td><input type="text" name="id" value="<?php echo( $test[ 'id' ] ); ?>" \></td>
+    <td><input type="text" name="id" value="<?php echo( $test[ 'id' ] ); ?>" \>
+    <emph>[ab-see id=your_id]</emph></td>
   </tr>
   <tr valign="top">
     <td>Description</td>
@@ -280,7 +281,8 @@ class WP_AB_See {
   </tr>
   <tr valign="top">
     <td>Conversion ID</td>
-    <td><input type="text" name="conversion_id" value="<?php echo( $test[ 'conversion_id' ] ); ?>" \></td>
+    <td><input type="text" name="conversion_id" value="<?php echo( $test[ 'conversion_id' ] ); ?>" \>
+    <emph>[ab-convert id=your_conversion_id]</emph></td>
   </tr>
   <tr valign="top">
     <td>&nbsp;</td>
@@ -312,6 +314,32 @@ class WP_AB_See {
 		} else {
 			return 0;
 		}
+	}
+
+	public function render_test_table( $test_obj, $enabled ) {
+?>
+<table width="100%">
+  <tr align="center">
+    <th>ID</th><th>Description</th><th>Created</th><th>Edit</th><th>Enabled</th>
+  </tr>
+<?php
+		foreach ( $test_obj as $test ) {
+			if ( $test[ 'enabled' ] != $enabled ) {
+				continue;
+			}
+?>
+  <tr align="center">
+    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;view_id=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'id' ] ); ?></a></td>
+    <td><?php echo( $test[ 'description' ] ); ?></td>
+    <td><?php echo( $test[ 'created' ] ); ?></td>
+    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;edit_id=<?php echo( $test[ 'id' ] ); ?>">edit</a></td>
+    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;toggle=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'enabled' ] ? 'On' : 'Off' ); ?></a></td>
+  </tr>
+<?php
+		}
+?>
+</table>
+<?php
 	}
 
 	public function show_view_page( $id ) {
@@ -366,7 +394,8 @@ class WP_AB_See {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', self::DOMAIN ) );
 		}
 ?>
-<h1>A/B See</h1>
+<h1 style="text-align: right; margin-right: 5%;">A/B See</h1>
+<h2 style="text-align: right; margin-right: 5%;">Simple split testing for WordPress</h2>
 <?php
 		if ( isset( $_POST[ 'create_id' ] ) ) {
 			$this->create_test( $_POST[ 'create_id' ] );
@@ -382,26 +411,13 @@ class WP_AB_See {
 
 		$test_obj = $this->get_all_tests();
 
+		echo( '<h2>Active Tests</h2>' );
+		$this->render_test_table( $test_obj, true );
+
+		echo( '<h2>Inactive Tests</h2>' );
+		$this->render_test_table( $test_obj, false );
+
 ?>
-<h2>Active Tests</h2>
-<table width="100%">
-  <tr align="center">
-    <th>ID</th><th>Description</th><th>Created</th><th>Edit</th><th>Enabled</th>
-  </tr>
-<?php
-		foreach ( $test_obj as $test ) {
-?>
-  <tr align="center">
-    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;view_id=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'id' ] ); ?></a></td>
-    <td><?php echo( $test[ 'description' ] ); ?></td>
-    <td><?php echo( $test[ 'created' ] ); ?></td>
-    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;edit_id=<?php echo( $test[ 'id' ] ); ?>">edit</a></td>
-    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;toggle=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'enabled' ] ? 'On' : 'Off' ); ?></a></td>
-  </tr>
-<?php
-		}
-?>
-</table>
 <h2>Create a New Test</h2>
 <form method="post" action="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>">
 <p>
