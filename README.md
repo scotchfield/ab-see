@@ -1,6 +1,8 @@
 # ab-see
 Straightforward shortcodes for A/B testing with WordPress.
 
+https://wordpress.org/plugins/ab-see/
+
 ## Overview
 Want to start a split-test right away? Choose a unique test id, provide a piece of code for the first group and a piece of code for the second, and define an id to indicate a conversion.
 
