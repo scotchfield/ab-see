@@ -195,6 +195,10 @@ class WP_AB_See {
 			), ARRAY_A
 		);
 
+		if ( $result == null ) {
+			return array();
+		}
+
 		$result[ 'description' ] = stripslashes( $result[ 'description' ] );
 		$result[ 'option_a' ] = stripslashes( $result[ 'option_a' ] );
 		$result[ 'option_b' ] = stripslashes( $result[ 'option_b' ] );
