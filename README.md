@@ -1,5 +1,5 @@
 # ab-see
-Straightforward shortcodes for A/B testing with WordPress.
+A/B testing in two shortcodes with WordPress.
 
 https://wordpress.org/plugins/ab-see/
 
