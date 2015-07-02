@@ -3,7 +3,7 @@
  * Plugin Name: A/B See
  * Plugin URI: http://scootah.com/
  * Description: Straightforward shortcodes for A/B testing with WordPress.
- * Version: 1.0
+ * Version: 1.01
  * Author: Scott Grant
  * Author URI: http://scootah.com/
  */
