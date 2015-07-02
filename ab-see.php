@@ -259,6 +259,40 @@ class WP_AB_See {
 	public function delete_test( $test_id ) {
 		global $wpdb;
 
+		$test = $this->get_test( $test_id );
+
+		if ( FALSE == $test ) {
+			return FALSE;
+		}
+
+		if ( ! isset( $_GET[ 'nonce' ] ) ) {
+?>
+<p style="background-color: #f0f8ff; border: 2px solid black; text-align: center; padding: 8px;">
+  Are you sure you want to delete the test <b><?php echo( $test_id ); ?></b>?
+  (<a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;delete=<?php echo( $test[ 'id' ] ); ?>&amp;nonce=<?php echo( wp_create_nonce( 'delete_' . $test_id ) ); ?>">Yes, really delete the test!</a>)
+</p>
+<?php
+		} else if ( wp_verify_nonce( $_GET[ 'nonce' ], 'delete_' . $test_id ) ) {
+			$wpdb->delete(
+				$this->table_name,
+				array(
+					'id' => $test_id,
+				)
+			);
+
+			$wpdb->delete(
+				$this->table_tracking_name,
+				array(
+					'id' => $test_id,
+				)
+			);
+?>
+<p style="background-color: #f0f8ff; border: 2px solid black; text-align: center; padding: 8px;">
+  Test deleted.
+</p>
+<?php
+		}
+
 	}
 
 	public function show_edit_page( $id ) {
