@@ -256,6 +256,11 @@ class WP_AB_See {
 		);
 	}
 
+	public function delete_test( $test_id ) {
+		global $wpdb;
+
+	}
+
 	public function show_edit_page( $id ) {
 		$test = $this->get_test( $id );
 
@@ -324,7 +329,10 @@ class WP_AB_See {
 ?>
 <table width="100%">
   <tr align="center">
-    <th>ID</th><th>Description</th><th>Created</th><th>Edit</th><th>Enabled</th>
+    <th>ID</th><th>Description</th><th>Created</th><th>Edit</th><th>Enabled</th><?php
+    	if ( ! $enabled ) {
+    		echo( '<th>Delete</th>' );
+    	}?>
   </tr>
 <?php
 		foreach ( $test_obj as $test ) {
@@ -338,6 +346,13 @@ class WP_AB_See {
     <td><?php echo( $test[ 'created' ] ); ?></td>
     <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;edit_id=<?php echo( $test[ 'id' ] ); ?>">edit</a></td>
     <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;toggle=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'enabled' ] ? 'On' : 'Off' ); ?></a></td>
+<?php
+			if ( ! $enabled ) {
+?>
+	<td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;delete=<?php echo( $test[ 'id' ] ); ?>">Delete Test</a></td>
+<?php
+			}
+?>
   </tr>
 <?php
 		}
@@ -411,6 +426,8 @@ class WP_AB_See {
 			$this->show_edit_page( $_GET[ 'edit_id' ] );
 		} else if ( isset( $_GET[ 'view_id' ] ) ) {
 			$this->show_view_page( $_GET[ 'view_id' ] );
+		} else if ( isset( $_GET[ 'delete' ] ) ) {
+			$this->delete_test( $_GET[ 'delete' ] );
 		}
 
 		$test_obj = $this->get_all_tests();
