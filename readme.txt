@@ -4,7 +4,7 @@ Donate link: http://scootah.com/
 Tags: ab-test, a/b testing, a/b test, split test, split testing, testing, website optimization
 Requires at least: 4.0
 Tested up to: 4.2.2
-Stable tag: 1.0
+Stable tag: 1.01
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,9 @@ http://scenttrunk.com?group_override=2 will force tests from the second group.
 2. An example of a split test with different text.
 
 == Changelog ==
+
+= 1.01 =
+* Add a delete test option for inactive tests. This will delete the test along with the old test data.
 
 = 1.0 =
 * First release!
