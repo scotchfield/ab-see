@@ -306,24 +306,24 @@ class WP_AB_See {
 <h2>Edit Test</h2>
 <table>
   <tr valign="top">
-    <td>ID</td>
+    <td><?php echo( __( 'ID', self::DOMAIN ) ); ?></td>
     <td><input type="text" name="id" value="<?php echo( $test[ 'id' ] ); ?>" \>
     <emph>[ab-see id=your_id]</emph></td>
   </tr>
   <tr valign="top">
-    <td>Description</td>
+    <td><?php echo( __( 'Description', self::DOMAIN ) ); ?></td>
     <td><textarea cols="80" rows="10" name="description"><?php echo( $test[ 'description' ] ); ?></textarea></td>
   </tr>
   <tr valign="top">
-    <td>Group 1</td>
+    <td><?php echo( __( 'Group 1', self::DOMAIN ) ); ?></td>
     <td><textarea cols="80" rows="10" name="option_a"><?php echo( $test[ 'option_a' ] ); ?></textarea></td>
   </tr>
   <tr valign="top">
-    <td>Group 2</td>
+    <td><?php echo( __( 'Group 2', self::DOMAIN ) ); ?></td>
     <td><textarea cols="80" rows="10" name="option_b"><?php echo( $test[ 'option_b' ] ); ?></textarea></td>
   </tr>
   <tr valign="top">
-    <td>Conversion ID</td>
+    <td><?php echo( __( 'Conversion ID', self::DOMAIN ) ); ?></td>
     <td><input type="text" name="conversion_id" value="<?php echo( $test[ 'conversion_id' ] ); ?>" \>
     <emph>[ab-convert id=your_conversion_id]</emph></td>
   </tr>
@@ -363,9 +363,13 @@ class WP_AB_See {
 ?>
 <table width="100%">
   <tr align="center">
-    <th>ID</th><th>Description</th><th>Created</th><th>Edit</th><th>Enabled</th><?php
+    <th><?php echo( __( 'ID', self::DOMAIN ) ); ?></th>
+    <th><?php echo( __( 'Description', self::DOMAIN ) ); ?></th>
+    <th><?php echo( __( 'Created', self::DOMAIN ) ); ?></th>
+    <th><?php echo( __( 'Edit', self::DOMAIN ) ); ?></th>
+    <th><?php echo( __( 'Enabled', self::DOMAIN ) ); ?></th><?php
     	if ( ! $enabled ) {
-    		echo( '<th>Delete</th>' );
+    		echo( '<th>' . __( 'Delete', self::DOMAIN ) . '</th>' );
     	}?>
   </tr>
 <?php
@@ -378,12 +382,12 @@ class WP_AB_See {
     <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;view_id=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'id' ] ); ?></a></td>
     <td><?php echo( $test[ 'description' ] ); ?></td>
     <td><?php echo( $test[ 'created' ] ); ?></td>
-    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;edit_id=<?php echo( $test[ 'id' ] ); ?>">edit</a></td>
+    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;edit_id=<?php echo( $test[ 'id' ] ); ?>"><?php echo( __( 'edit', self::DOMAIN ) ); ?></a></td>
     <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;toggle=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'enabled' ] ? 'On' : 'Off' ); ?></a></td>
 <?php
 			if ( ! $enabled ) {
 ?>
-	<td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;delete=<?php echo( $test[ 'id' ] ); ?>">Delete Test</a></td>
+	<td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;delete=<?php echo( $test[ 'id' ] ); ?>"><?php echo( __( 'Delete Test', self::DOMAIN ) ); ?></a></td>
 <?php
 			}
 ?>
