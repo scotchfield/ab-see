@@ -362,7 +362,7 @@ class WP_AB_See {
 	public function render_test_table( $test_obj, $enabled ) {
 ?>
 <table class="wp-list-table widefat fixed striped">
-  <tr align="center">
+  <tr>
     <th><?php echo( __( 'ID', self::DOMAIN ) ); ?></th>
     <th><?php echo( __( 'Description', self::DOMAIN ) ); ?></th>
     <th><?php echo( __( 'Created', self::DOMAIN ) ); ?></th>
@@ -378,7 +378,7 @@ class WP_AB_See {
 				continue;
 			}
 ?>
-  <tr align="center">
+  <tr>
     <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;view_id=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'id' ] ); ?></a></td>
     <td><?php echo( $test[ 'description' ] ); ?></td>
     <td><?php echo( $test[ 'created' ] ); ?></td>
