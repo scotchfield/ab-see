@@ -361,7 +361,7 @@ class WP_AB_See {
 
 	public function render_test_table( $test_obj, $enabled ) {
 ?>
-<table width="100%">
+<table class="wp-list-table widefat fixed striped">
   <tr align="center">
     <th><?php echo( __( 'ID', self::DOMAIN ) ); ?></th>
     <th><?php echo( __( 'Description', self::DOMAIN ) ); ?></th>
