@@ -3,7 +3,7 @@ Contributors: sgrant
 Donate link: http://scootah.com/
 Tags: ab-test, a/b testing, a/b test, split test, split testing, testing, website optimization
 Requires at least: 4.0
-Tested up to: 4.2.2
+Tested up to: 4.2.4
 Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
