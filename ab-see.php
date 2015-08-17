@@ -23,20 +23,27 @@ class WP_AB_See {
 	 * Instantiate, if necessary, and add hooks.
 	 */
 	public function __construct() {
-		global $wpdb;
+		register_activation_hook( __FILE__, array( $this, 'install' ) );
 
-		if ( isset( self::$instance ) ) {
-			wp_die( esc_html__(
-				'WP_AB_See is already instantiated!',
-				self::DOMAIN ) );
+		add_action( 'init', array( $this, 'init' ) );
+	}
+
+	/**
+	 * Return the single instance of our class.
+	 */
+	public static function get_instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new WP_AB_See();
 		}
 
-		self::$instance = $this;
+		return self::$instance;
+	}
+
+	public function init() {
+		global $wpdb;
 
 		$this->table_name = $wpdb->prefix . 'ab_see';
 		$this->table_tracking_name = $wpdb->prefix . 'ab_see_tracking';
-
-		register_activation_hook( __FILE__, array( $this, 'install' ) );
 
 		add_filter(
 			'plugin_action_links_' . plugin_basename(__FILE__),
@@ -47,10 +54,6 @@ class WP_AB_See {
 
 		add_shortcode( 'ab-see', array( $this, 'shortcode_absee' ) );
 		add_shortcode( 'ab-convert', array( $this, 'shortcode_abconvert' ) );
-	}
-
-	public static function get_instance() {
-		return self::$instance;
 	}
 
 	public function install() {
@@ -558,4 +561,4 @@ class WP_AB_See {
 
 }
 
-$wp_ab_see = new WP_AB_See();
+$wp_ab_see = WP_AB_See::get_instance();
