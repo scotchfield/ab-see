@@ -22,7 +22,7 @@ class WP_AB_See {
 	/**
 	 * Instantiate, if necessary, and add hooks.
 	 */
-	public function __construct() {
+	private function __construct() {
 		register_activation_hook( __FILE__, array( $this, 'install' ) );
 
 		add_action( 'init', array( $this, 'init' ) );
