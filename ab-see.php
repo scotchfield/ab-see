@@ -15,6 +15,11 @@ class WP_AB_See {
 	private static $instance = null;
 
 	/**
+	 * Custom tables for test tracking.
+	 */
+	public $table_name, $table_tracking_name;
+
+	/**
 	 * The domain for localization.
 	 */
 	const DOMAIN = 'wp-ab-see';
