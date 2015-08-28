@@ -9,6 +9,7 @@ class Test_AB_See extends WP_UnitTestCase {
 		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
 
 		$this->class = new WP_AB_See();
+		$this->class->install();
 
 		$this->wp_die = false;
 		add_filter( 'wp_die_handler', array( $this, 'get_wp_die_handler' ), 1, 1 );

@@ -48,30 +48,37 @@ class WP_AB_See {
 	public function install() {
 		global $wpdb;
 
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql = "CREATE TABLE " . $this->table_name . " (
-			id VARCHAR(32) NOT NULL,
-			description TEXT,
-			created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			enabled BOOLEAN DEFAULT false,
-			option_a TEXT,
-			option_b TEXT,
-			conversion_id TINYTEXT,
-			UNIQUE KEY id (id)
-		) $charset_collate;
+		if ( $wpdb->get_var( 'SHOW TABLES LIKE \'' . $this->table_name . '\'' ) != $this->table_name ) {
+			$sql = "CREATE TABLE " . $this->table_name . " (
+				id VARCHAR(32) NOT NULL,
+				description TEXT,
+				created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				enabled BOOLEAN DEFAULT false,
+				option_a TEXT,
+				option_b TEXT,
+				conversion_id TINYTEXT,
+				UNIQUE KEY id (id)
+			) $charset_collate;";
 
-		CREATE TABLE " . $this->table_tracking_name . " (
-			id VARCHAR(32) NOT NULL,
-			user_id VARCHAR(64) NOT NULL,
-			user_group TINYINT,
-			created datetime NOT NULL,
-			converted datetime NOT NULL,
-			UNIQUE KEY `id` (`id`,`user_id`,`user_group`)
-		) $charset_collate";
+			dbDelta( $sql );
+		}
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-		dbDelta( $sql );
+		if ( $wpdb->get_var( 'SHOW TABLES LIKE \'' . $this->table_tracking_name . '\'' ) != $this->table_tracking_name ) {
+			$sql = "CREATE TABLE " . $this->table_tracking_name . " (
+				id VARCHAR(32) NOT NULL,
+				user_id VARCHAR(64) NOT NULL,
+				user_group TINYINT,
+				created datetime NOT NULL,
+				converted datetime NOT NULL,
+				UNIQUE KEY `id` (`id`,`user_id`,`user_group`)
+			) $charset_collate";
+
+			dbDelta( $sql );
+		}
 	}
 
 	public function add_action_links( $links ) {
