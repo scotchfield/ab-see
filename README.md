@@ -3,6 +3,8 @@ WordPress A/B testing in two shortcodes.
 
 https://wordpress.org/plugins/ab-see/
 
+[![Build status](https://api.travis-ci.org/scotchfield/ab-see.svg?branch=master)](https://travis-ci.org/scotchfield/ab-see)
+
 ## Overview
 Want to start a split-test right away? Choose a unique test id, provide a piece of code for the first group and a piece of code for the second, and define an id to indicate a conversion.
 
