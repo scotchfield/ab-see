@@ -56,6 +56,16 @@ class Test_AB_See extends WP_UnitTestCase {
 	}
 
 	/**
+	 * @covers WP_AB_See::add_action_links
+	 */
+	public function test_add_action_links() {
+		$result = $this->class->add_action_links( array() );
+
+		$this->assertCount( 1, $result );
+		$this->assertContains( 'page=' . WP_AB_See::DOMAIN, $result[ 0 ] );
+	}
+
+	/**
 	 * @covers WP_AB_See::admin_menu
 	 */
 	public function test_admin_menu() {

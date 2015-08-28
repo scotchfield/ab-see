@@ -76,7 +76,8 @@ class WP_AB_See {
 
 	public function add_action_links( $links ) {
 		$new_links = array(
-			'<a href="' . admin_url( 'options-general.php?page=' . self::DOMAIN . 'admin' ) . '">Settings</a>',
+			'<a href="' . admin_url( 'options-general.php?page=' . self::DOMAIN . 'admin' ) . '">' .
+				esc_html__( 'Settings', self::DOMAIN ) . '</a>',
 		);
 
 		return array_merge( $links, $new_links );
