@@ -95,9 +95,6 @@ class Test_AB_See extends WP_UnitTestCase {
 		$this->assertArrayHasKey( WP_AB_See::DOMAIN . 'admin', $GLOBALS[ 'admin_page_hooks' ] );
 	}
 
-
-
-
 	/**
 	 * @covers WP_AB_See::admin_page
 	 */
@@ -127,6 +124,20 @@ class Test_AB_See extends WP_UnitTestCase {
 		$this->assertContains( $test_id, $content );
 
 		wp_set_current_user( $old_user_id );
+	}
+
+	/**
+	 * @covers WP_AB_See::shortcode_absee
+	 */
+	public function test_shortcode_absee_empty() {
+		$this->assertEmpty( $this->class->shortcode_absee( array() ) );
+	}
+
+	/**
+	 * @covers WP_AB_See::shortcode_absee
+	 */
+	public function test_shortcode_absee_test_does_not_exist() {
+		$this->assertEmpty( $this->class->shortcode_absee( array( 'id' => 'test_dne' ) ) );
 	}
 
 }
