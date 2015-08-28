@@ -8,7 +8,7 @@ class Test_AB_See extends WP_UnitTestCase {
 		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
 		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
 
-		$this->class = WP_AB_See::get_instance();
+		$this->class = new WP_AB_See();
 	}
 
 	public function tearDown() {
@@ -18,12 +18,10 @@ class Test_AB_See extends WP_UnitTestCase {
 	}
 
 	/**
-	 * @covers WP_AB_See::get_instance
+	 * @covers WP_AB_See::__construct
 	 */
-	public function test_get_instance() {
-		$class = WP_AB_See::get_instance();
-
-		$this->assertNotNull( $class );
+	public function test_construct() {
+		$this->assertNotNull( $this->class );
 	}
 
 	/**

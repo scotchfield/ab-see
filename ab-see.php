@@ -10,11 +10,6 @@
 class WP_AB_See {
 
 	/**
-	 * Store reference to singleton object.
-	 */
-	private static $instance = null;
-
-	/**
 	 * Custom tables for test tracking.
 	 */
 	public $table_name, $table_tracking_name;
@@ -25,31 +20,20 @@ class WP_AB_See {
 	const DOMAIN = 'wp-ab-see';
 
 	/**
-	 * Instantiate, if necessary, and add hooks.
+	 * Instantiate and add init hook.
 	 */
-	private function __construct() {
+	public function __construct() {
+		global $wpdb;
+
 		register_activation_hook( __FILE__, array( $this, 'install' ) );
 
 		add_action( 'init', array( $this, 'init' ) );
-	}
-
-	/**
-	 * Return the single instance of our class.
-	 */
-	public static function get_instance() {
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new WP_AB_See();
-		}
-
-		return self::$instance;
-	}
-
-	public function init() {
-		global $wpdb;
 
 		$this->table_name = $wpdb->prefix . 'ab_see';
 		$this->table_tracking_name = $wpdb->prefix . 'ab_see_tracking';
+	}
 
+	public function init() {
 		add_filter(
 			'plugin_action_links_' . plugin_basename(__FILE__),
 			array( $this, 'add_action_links' )
@@ -566,4 +550,4 @@ class WP_AB_See {
 
 }
 
-$wp_ab_see = WP_AB_See::get_instance();
+$wp_ab_see = new WP_AB_See();
