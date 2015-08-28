@@ -9,12 +9,28 @@ class Test_AB_See extends WP_UnitTestCase {
 		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
 
 		$this->class = new WP_AB_See();
+
+		$this->wp_die = false;
+		add_filter( 'wp_die_handler', array( $this, 'get_wp_die_handler' ), 1, 1 );
 	}
 
 	public function tearDown() {
+		remove_filter( 'wp_die_handler', array( $this, 'get_wp_die_handler' ) );
+		unset( $this->wp_die );
+
 		unset( $this->class );
 
 		parent::tearDown();
+	}
+
+	public function get_wp_die_handler( $handler ) {
+		return array( $this, 'wp_die_handler' );
+	}
+
+	public function wp_die_handler( $message ) {
+		$this->wp_die = true;
+
+		throw new WPDieException( $message );
 	}
 
 	/**
@@ -72,6 +88,20 @@ class Test_AB_See extends WP_UnitTestCase {
 		$this->class->admin_menu();
 
 		$this->assertArrayHasKey( WP_AB_See::DOMAIN . 'admin', $GLOBALS[ 'admin_page_hooks' ] );
+	}
+
+
+
+
+	/**
+	 * @covers WP_AB_See::admin_page
+	 */
+	public function test_admin_page_die() {
+		try {
+			$this->class->admin_page();
+		} catch ( WPDieException $e ) {}
+
+		$this->assertTrue( $this->wp_die );
 	}
 
 }
