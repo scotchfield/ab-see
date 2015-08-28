@@ -110,7 +110,7 @@ class Test_AB_See extends WP_UnitTestCase {
 	/**
 	 * @covers WP_AB_See::admin_page
 	 */
-	public function test_admin_page_create() {
+	/*public function test_admin_page_create() {
 		$user = new WP_User( $this->factory->user->create( array( 'role' => 'administrator' ) ) );
 		$old_user_id = get_current_user_id();
 		wp_set_current_user( $user->ID );
@@ -125,7 +125,7 @@ class Test_AB_See extends WP_UnitTestCase {
 		$this->assertContains( $test_id, $content );
 
 		wp_set_current_user( $old_user_id );
-	}
+	}*/
 
 	/**
 	 * @covers WP_AB_See::shortcode_absee
