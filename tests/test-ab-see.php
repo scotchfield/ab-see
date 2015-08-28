@@ -15,6 +15,11 @@ class Test_AB_See extends WP_UnitTestCase {
 	}
 
 	public function tearDown() {
+		global $wpdb;
+
+		$wpdb->query( 'DELETE FROM ' . $this->class->table_name );
+		$wpdb->query( 'DELETE FROM ' . $this->class->table_tracking_name );
+
 		remove_filter( 'wp_die_handler', array( $this, 'get_wp_die_handler' ) );
 		unset( $this->wp_die );
 
@@ -102,6 +107,26 @@ class Test_AB_See extends WP_UnitTestCase {
 		} catch ( WPDieException $e ) {}
 
 		$this->assertTrue( $this->wp_die );
+	}
+
+	/**
+	 * @covers WP_AB_See::admin_page
+	 */
+	public function test_admin_page_create() {
+		$user = new WP_User( $this->factory->user->create( array( 'role' => 'administrator' ) ) );
+		$old_user_id = get_current_user_id();
+		wp_set_current_user( $user->ID );
+
+		$test_id = 'test_create';
+		$_POST[ 'create_id' ] = $test_id;
+
+		ob_start();
+		$this->class->admin_page();
+		$content = ob_get_clean();
+
+		$this->assertContains( $test_id, $content );
+
+		wp_set_current_user( $old_user_id );
 	}
 
 }
