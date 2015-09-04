@@ -291,8 +291,10 @@ class WP_AB_See {
   Test deleted.
 </p>
 <?php
+			return TRUE;
 		}
 
+		return FALSE;
 	}
 
 	public function show_edit_page( $id ) {

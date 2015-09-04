@@ -141,4 +141,37 @@ class Test_AB_See extends WP_UnitTestCase {
 		$this->assertEmpty( $this->class->shortcode_absee( array( 'id' => 'test_dne' ) ) );
 	}
 
+	/**
+	 * @covers WP_AB_See::get_tests_with_conversion
+	 */
+	public function test_get_tests_with_conversion_empty() {
+		$this->assertEmpty( $this->class->get_tests_with_conversion( -1 ) );
+	}
+
+	/**
+	 * @covers WP_AB_See::create_test
+	 * @covers WP_AB_See::get_test
+	 * @covers WP_AB_See::delete_test
+	 */
+	public function test_create_get_and_delete_test() {
+		$test_id = 'test';
+
+		$this->class->create_test( $test_id );
+
+		$result = $this->class->get_test( $test_id );
+
+		$this->assertNotEmpty( $result );
+		$this->assertEquals( $test_id, $result[ 'id' ] );
+
+		$_GET[ 'nonce' ] = wp_create_nonce( 'delete_' . $test_id );
+
+		ob_start();
+		$this->assertTrue( $this->class->delete_test( $test_id ) );
+		ob_end_clean();
+
+		unset( $_GET[ 'nonce' ] );
+
+		$this->assertEmpty( $this->class->get_test( $test_id ) );
+	}
+
 }
