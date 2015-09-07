@@ -142,6 +142,13 @@ class Test_AB_See extends WP_UnitTestCase {
 	}
 
 	/**
+	 * @covers WP_AB_See::get_all_tests
+	 */
+	public function test_get_all_tests_with_conversion_empty() {
+		$this->assertEmpty( $this->class->get_all_tests() );
+	}
+
+	/**
 	 * @covers WP_AB_See::get_tests_with_conversion
 	 */
 	public function test_get_tests_with_conversion_empty() {
