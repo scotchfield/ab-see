@@ -144,7 +144,7 @@ class Test_AB_See extends WP_UnitTestCase {
 	/**
 	 * @covers WP_AB_See::get_all_tests
 	 */
-	public function test_get_all_tests_with_conversion_empty() {
+	public function test_get_all_tests_empty() {
 		$this->assertEmpty( $this->class->get_all_tests() );
 	}
 
@@ -179,6 +179,25 @@ class Test_AB_See extends WP_UnitTestCase {
 		unset( $_GET[ 'nonce' ] );
 
 		$this->assertEmpty( $this->class->get_test( $test_id ) );
+	}
+
+	/**
+	 * @covers WP_AB_See::get_all_tests
+	 */
+	public function test_get_all_tests_single() {
+		$test_id = 'test';
+
+		$this->class->create_test( $test_id );
+
+		$this->assertCount( 1, $this->class->get_all_tests() );
+
+		$_GET[ 'nonce' ] = wp_create_nonce( 'delete_' . $test_id );
+
+		ob_start();
+		$this->class->delete_test( $test_id );
+		ob_end_clean();
+
+		unset( $_GET[ 'nonce' ] );
 	}
 
 }
