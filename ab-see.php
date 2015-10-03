@@ -268,8 +268,8 @@ class WP_AB_See {
 		if ( ! isset( $_GET[ 'nonce' ] ) ) {
 ?>
 <p style="background-color: #f0f8ff; border: 2px solid black; text-align: center; padding: 8px;">
-  Are you sure you want to delete the test <b><?php echo( $test_id ); ?></b>?
-  (<a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;delete=<?php echo( $test[ 'id' ] ); ?>&amp;nonce=<?php echo( wp_create_nonce( 'delete_' . $test_id ) ); ?>">Yes, really delete the test!</a>)
+  Are you sure you want to delete the test <b><?php echo $test_id; ?></b>?
+  (<a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;delete=<?php echo $test[ 'id' ]; ?>&amp;nonce=<?php echo wp_create_nonce( 'delete_' . $test_id ); ?>">Yes, really delete the test!</a>)
 </p>
 <?php
 		} else if ( wp_verify_nonce( $_GET[ 'nonce' ], 'delete_' . $test_id ) ) {
@@ -304,29 +304,29 @@ class WP_AB_See {
 			return;
 		}
 ?>
-<form method="post" action="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>">
+<form method="post" action="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>">
 <h2>Edit Test</h2>
 <table>
   <tr valign="top">
-    <td><?php echo( __( 'ID', self::DOMAIN ) ); ?></td>
-    <td><input type="text" name="id" value="<?php echo( $test[ 'id' ] ); ?>" \>
+    <td><?php echo __( 'ID', self::DOMAIN ); ?></td>
+    <td><input type="text" name="id" value="<?php echo $test[ 'id' ]; ?>" \>
     <emph>[ab-see id=your_id]</emph></td>
   </tr>
   <tr valign="top">
-    <td><?php echo( __( 'Description', self::DOMAIN ) ); ?></td>
-    <td><textarea cols="80" rows="10" name="description"><?php echo( $test[ 'description' ] ); ?></textarea></td>
+    <td><?php echo __( 'Description', self::DOMAIN ); ?></td>
+    <td><textarea cols="80" rows="10" name="description"><?php echo $test[ 'description' ]; ?></textarea></td>
   </tr>
   <tr valign="top">
-    <td><?php echo( __( 'Group 1', self::DOMAIN ) ); ?></td>
-    <td><textarea cols="80" rows="10" name="option_a"><?php echo( $test[ 'option_a' ] ); ?></textarea></td>
+    <td><?php echo __( 'Group 1', self::DOMAIN ); ?></td>
+    <td><textarea cols="80" rows="10" name="option_a"><?php echo $test[ 'option_a' ]; ?></textarea></td>
   </tr>
   <tr valign="top">
-    <td><?php echo( __( 'Group 2', self::DOMAIN ) ); ?></td>
-    <td><textarea cols="80" rows="10" name="option_b"><?php echo( $test[ 'option_b' ] ); ?></textarea></td>
+    <td><?php echo __( 'Group 2', self::DOMAIN ); ?></td>
+    <td><textarea cols="80" rows="10" name="option_b"><?php echo $test[ 'option_b' ]; ?></textarea></td>
   </tr>
   <tr valign="top">
-    <td><?php echo( __( 'Conversion ID', self::DOMAIN ) ); ?></td>
-    <td><input type="text" name="conversion_id" value="<?php echo( $test[ 'conversion_id' ] ); ?>" \>
+    <td><?php echo __( 'Conversion ID', self::DOMAIN ); ?></td>
+    <td><input type="text" name="conversion_id" value="<?php echo $test[ 'conversion_id' ]; ?>" \>
     <emph>[ab-convert id=your_conversion_id]</emph></td>
   </tr>
   <tr valign="top">
@@ -365,13 +365,13 @@ class WP_AB_See {
 ?>
 <table class="wp-list-table widefat fixed striped">
   <tr>
-    <th><?php echo( __( 'ID', self::DOMAIN ) ); ?></th>
-    <th><?php echo( __( 'Description', self::DOMAIN ) ); ?></th>
-    <th><?php echo( __( 'Created', self::DOMAIN ) ); ?></th>
-    <th><?php echo( __( 'Edit', self::DOMAIN ) ); ?></th>
-    <th><?php echo( __( 'Enabled', self::DOMAIN ) ); ?></th><?php
+    <th><?php echo __( 'ID', self::DOMAIN ); ?></th>
+    <th><?php echo __( 'Description', self::DOMAIN ); ?></th>
+    <th><?php echo __( 'Created', self::DOMAIN ); ?></th>
+    <th><?php echo __( 'Edit', self::DOMAIN ); ?></th>
+    <th><?php echo __( 'Enabled', self::DOMAIN ); ?></th><?php
     	if ( ! $enabled ) {
-    		echo( '<th>' . __( 'Delete', self::DOMAIN ) . '</th>' );
+    		echo '<th>' . __( 'Delete', self::DOMAIN ) . '</th>';
     	}?>
   </tr>
 <?php
@@ -381,15 +381,15 @@ class WP_AB_See {
 			}
 ?>
   <tr>
-    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;view_id=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'id' ] ); ?></a></td>
-    <td><?php echo( $test[ 'description' ] ); ?></td>
-    <td><?php echo( $test[ 'created' ] ); ?></td>
-    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;edit_id=<?php echo( $test[ 'id' ] ); ?>"><?php echo( __( 'edit', self::DOMAIN ) ); ?></a></td>
-    <td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;toggle=<?php echo( $test[ 'id' ] ); ?>"><?php echo( $test[ 'enabled' ] ? 'On' : 'Off' ); ?></a></td>
+    <td><a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;view_id=<?php echo $test[ 'id' ]; ?>"><?php echo $test[ 'id' ]; ?></a></td>
+    <td><?php echo $test[ 'description' ]; ?></td>
+    <td><?php echo $test[ 'created' ]; ?></td>
+    <td><a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;edit_id=<?php echo $test[ 'id' ]; ?>"><?php echo __( 'edit', self::DOMAIN ); ?></a></td>
+    <td><a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;toggle=<?php echo $test[ 'id' ]; ?>"><?php echo $test[ 'enabled' ] ? 'On' : 'Off'; ?></a></td>
 <?php
 			if ( ! $enabled ) {
 ?>
-	<td><a href="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>&amp;delete=<?php echo( $test[ 'id' ] ); ?>"><?php echo( __( 'Delete Test', self::DOMAIN ) ); ?></a></td>
+	<td><a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;delete=<?php echo $test[ 'id' ]; ?>"><?php echo __( 'Delete Test', self::DOMAIN ); ?></a></td>
 <?php
 			}
 ?>
@@ -409,10 +409,10 @@ class WP_AB_See {
 		}
 ?>
 <p>To use this test, add the following shortcode to the place you want to show your content:<br>
-<i>[ab-see id=<?php echo( $id ) ?>]</i></p>
+<i>[ab-see id=<?php echo $id; ?>]</i></p>
 
 <p>To register a conversion, add the following shortcode to the final page:<br>
-<i>[ab-convert id=<?php echo( $test[ 'conversion_id' ] ) ?>]</i></p>
+<i>[ab-convert id=<?php echo $test[ 'conversion_id' ]; ?>]</i></p>
 <?php
 		$tracking_obj = $this->get_tracking( $id );
 
@@ -438,13 +438,13 @@ class WP_AB_See {
 			count( $group_obj[ 2 ][ 'no' ] ) ), 2 );
 
 ?>
-<h2>Group 1 conversions: <?php echo( $group_a ); ?>%
-  (<?php echo( count( $group_obj[ 1 ][ 'yes' ] ) ); ?>/<?php
-         echo( count( $group_obj[ 1 ][ 'yes' ] ) + count( $group_obj[ 1 ][ 'no' ] ) ); ?>)</h2>
+<h2>Group 1 conversions: <?php echo $group_a; ?>%
+  (<?php echo count( $group_obj[ 1 ][ 'yes' ] ); ?>/<?php
+         echo count( $group_obj[ 1 ][ 'yes' ] ) + count( $group_obj[ 1 ][ 'no' ] ); ?>)</h2>
 
-<h2>Group 2 conversions: <?php echo( $group_b ); ?>%
-  (<?php echo( count( $group_obj[ 2 ][ 'yes' ] ) ); ?>/<?php
-         echo( count( $group_obj[ 2 ][ 'yes' ] ) + count( $group_obj[ 2 ][ 'no' ] ) ); ?>)</h2>
+<h2>Group 2 conversions: <?php echo $group_b; ?>%
+  (<?php echo count( $group_obj[ 2 ][ 'yes' ] ); ?>/<?php
+         echo count( $group_obj[ 2 ][ 'yes' ] ) + count( $group_obj[ 2 ][ 'no' ] ); ?>)</h2>
 <?php
 	}
 
@@ -472,15 +472,15 @@ class WP_AB_See {
 
 		$test_obj = $this->get_all_tests();
 
-		echo( '<h2>Active Tests</h2>' );
+		echo '<h2>Active Tests</h2>';
 		$this->render_test_table( $test_obj, true );
 
-		echo( '<h2>Inactive Tests</h2>' );
+		echo '<h2>Inactive Tests</h2>';
 		$this->render_test_table( $test_obj, false );
 
 ?>
 <h2>Create a New Test</h2>
-<form method="post" action="admin.php?page=<?php echo( self::DOMAIN . 'admin' ); ?>">
+<form method="post" action="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>">
 <p>
   <b>Test ID (unique, no spaces!)</b>: <input type="text" name="create_id">
 </p>
