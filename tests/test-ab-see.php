@@ -200,4 +200,11 @@ class Test_AB_See extends WP_UnitTestCase {
 		unset( $_GET[ 'nonce' ] );
 	}
 
+	/**
+	 * @covers WP_AB_See::update_tracking
+	 */
+	public function test_update_tracking_empty() {
+		$this->assertFalse( $this->class->update_tracking( '', '', '' ) );
+	}
+
 }

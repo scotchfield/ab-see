@@ -106,6 +106,10 @@ class WP_AB_See {
 	public function update_tracking( $test_id, $user_id, $user_group ) {
 		global $wpdb;
 
+		if ( empty( $test_id ) || empty( $user_id ) || empty( $user_group ) ) {
+			return FALSE;
+		}
+
 		$result = $wpdb->get_row(
 			$wpdb->prepare(
 				'SELECT * FROM `' . $this->table_tracking_name . '` WHERE id=%s AND user_id=%s',
@@ -453,8 +457,7 @@ class WP_AB_See {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', self::DOMAIN ) );
 		}
 ?>
-<h1 style="text-align: right; margin-right: 5%;">A/B See</h1>
-<h2 style="text-align: right; margin-right: 5%;">Simple split testing for WordPress</h2>
+<h1>A/B See</h1>
 <?php
 		if ( isset( $_POST[ 'create_id' ] ) ) {
 			$this->create_test( $_POST[ 'create_id' ] );
