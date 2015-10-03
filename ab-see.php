@@ -43,6 +43,10 @@ class WP_AB_See {
 
 		add_shortcode( 'ab-see', array( $this, 'shortcode_absee' ) );
 		add_shortcode( 'ab-convert', array( $this, 'shortcode_abconvert' ) );
+
+		wp_register_style( 'ab-see-style', plugins_url( '/css/ab-see.css', __FILE__ ) );
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 	}
 
 	public function install() {
@@ -79,6 +83,10 @@ class WP_AB_See {
 
 			dbDelta( $sql );
 		}
+	}
+
+	public function enqueue_styles() {
+		wp_enqueue_style( 'ab-see-style' );
 	}
 
 	public function add_action_links( $links ) {
@@ -271,7 +279,7 @@ class WP_AB_See {
 
 		if ( ! isset( $_GET[ 'nonce' ] ) ) {
 ?>
-<p style="background-color: #f0f8ff; border: 2px solid black; text-align: center; padding: 8px;">
+<p class="ab-see-alert">
   Are you sure you want to delete the test <b><?php echo $test_id; ?></b>?
   (<a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;delete=<?php echo $test[ 'id' ]; ?>&amp;nonce=<?php echo wp_create_nonce( 'delete_' . $test_id ); ?>">Yes, really delete the test!</a>)
 </p>
