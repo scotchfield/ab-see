@@ -279,7 +279,7 @@ class WP_AB_See {
 
 		if ( ! isset( $_GET[ 'nonce' ] ) ) {
 ?>
-<p class="ab-see-alert">
+<p class="ab-see-notify">
   Are you sure you want to delete the test <b><?php echo $test_id; ?></b>?
   (<a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;delete=<?php echo $test[ 'id' ]; ?>&amp;nonce=<?php echo wp_create_nonce( 'delete_' . $test_id ); ?>">Yes, really delete the test!</a>)
 </p>
@@ -299,7 +299,7 @@ class WP_AB_See {
 				)
 			);
 ?>
-<p style="background-color: #f0f8ff; border: 2px solid black; text-align: center; padding: 8px;">
+<p class="ab-see-notify">
   Test deleted.
 </p>
 <?php
