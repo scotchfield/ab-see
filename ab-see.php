@@ -373,7 +373,18 @@ class WP_AB_See {
 		}
 	}
 
-	public function render_test_table( $test_obj, $enabled ) {
+	public function sort_active_name( $a, $b ) {
+		if ( $a['enabled'] != $b['enabled'] ) {
+			return ( $a['enabled'] < $b['enabled'] ) ? 1 : -1;
+		}
+
+		return ( $a['id'] < $b['id'] ) ? -1 : 1;
+	}
+
+	public function render_test_table() {
+		$test_obj = $this->get_all_tests();
+		uasort( $test_obj, array( $this, 'sort_active_name' ) );
+
 ?>
 <table class="wp-list-table widefat fixed striped">
   <tr>
@@ -381,16 +392,11 @@ class WP_AB_See {
     <th><?php echo __( 'Description', self::DOMAIN ); ?></th>
     <th><?php echo __( 'Created', self::DOMAIN ); ?></th>
     <th><?php echo __( 'Edit', self::DOMAIN ); ?></th>
-    <th><?php echo __( 'Enabled', self::DOMAIN ); ?></th><?php
-    	if ( ! $enabled ) {
-    		echo '<th>' . __( 'Delete', self::DOMAIN ) . '</th>';
-    	}?>
+    <th><?php echo __( 'Enabled', self::DOMAIN ); ?></th>
+    <th><?php echo __( 'Delete', self::DOMAIN ); ?></th>
   </tr>
 <?php
 		foreach ( $test_obj as $test ) {
-			if ( $test[ 'enabled' ] != $enabled ) {
-				continue;
-			}
 ?>
   <tr>
     <td><a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;view_id=<?php echo $test[ 'id' ]; ?>"><?php echo $test[ 'id' ]; ?></a></td>
@@ -398,13 +404,13 @@ class WP_AB_See {
     <td><?php echo $test[ 'created' ]; ?></td>
     <td><a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;edit_id=<?php echo $test[ 'id' ]; ?>"><?php echo __( 'edit', self::DOMAIN ); ?></a></td>
     <td><a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;toggle=<?php echo $test[ 'id' ]; ?>"><?php echo $test[ 'enabled' ] ? 'On' : 'Off'; ?></a></td>
-<?php
-			if ( ! $enabled ) {
+	<td><?php
+			if ( ! $test['enabled'] ) {
 ?>
-	<td><a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;delete=<?php echo $test[ 'id' ]; ?>"><?php echo __( 'Delete Test', self::DOMAIN ); ?></a></td>
+	<a href="admin.php?page=<?php echo self::DOMAIN . 'admin'; ?>&amp;delete=<?php echo $test[ 'id' ]; ?>"><?php echo __( 'Delete Test', self::DOMAIN ); ?></a>
 <?php
 			}
-?>
+?></td>
   </tr>
 <?php
 		}
@@ -481,13 +487,8 @@ class WP_AB_See {
 			$this->delete_test( $_GET[ 'delete' ] );
 		}
 
-		$test_obj = $this->get_all_tests();
-
-		echo '<h2>Active Tests</h2>';
-		$this->render_test_table( $test_obj, true );
-
-		echo '<h2>Inactive Tests</h2>';
-		$this->render_test_table( $test_obj, false );
+		echo '<h2>All Tests</h2>';
+		$this->render_test_table();
 
 ?>
 <h2>Create a New Test</h2>
